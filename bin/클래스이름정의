@@ -1,0 +1,83 @@
+
+
+
+
+
+
+/* Dao 와 sevice pakage안에 있는 클래스는 전부 싱클톤 패턴으로 제작한다.*/
+
+		로그인정보 담는 변수
+		public static Map<String, Object> LoginMember; 
+		public static Map<String, Object> LoginAlias; 
+
+
+
+
+
+pakage controller -- 화면이동 하는 곳
+	class Controller
+		method start()
+		method home()
+		
+pakage dao -- Oracle_sqlDeveloper 연결 후 SQL문으로 값 가져오는 클래스들
+	class memberDao 				// 회원가입, 로그인
+		method insertMember()
+		method insertCard()
+		method insertMembership()
+		method insertAlias()
+		method insertLikeType()
+		method selectLogin() --로그인
+		
+		
+	class memberMypageDao 		// 마이페이지
+		method selectInfo()
+		method insertPick_chart()
+		method selectPick_chart()
+		method deletePick_chart()
+		method insertWatch()
+		method selectWatch()
+		
+	class MovieSearchDao 		// 영화검색
+		method selectMovieSearch()
+		method insertScoreGood()
+		
+	class MovieRecommendDao 	// 추천 영화
+		method selectMovieRecommend()
+		method selectMR()
+		
+	class MovieTopDao 			// 탑10 영화
+		method selectViewCnt() 	// 조회수별
+		method selectScore()	// 좋아요별
+	class MovieOpeningDao()		// 개봉예정작
+		method selectD_10()			// d-10일
+		method selectD_30()			// d-30일
+	
+pakage service -- JAVA에서 DAO로 던지고 DAO에서 받은 값들을 출력 하는 곳
+	class MemeberService		    // 회원가입, 로그인
+		method join()
+		method login()
+	class MemberMypageService     // 마이페이지
+		method info()
+		method pick_chart()
+		method watch()
+	class MovieSearchService    // 영화검색
+		method searchMovie() 
+	class MovieRecommendService // 추천 영화
+		method recommendMovie()
+	class MovieTopService 	    // 탑10 영화
+		method viewCnt()	    // 조회수별
+		method score()		    // 좋아요별
+	class MovieOpeningService   // 개봉예정작
+		method d_10()			// d-10일
+		method d_30() 		    // d-30일
+	
+	class Notice
+		method notice()
+	class F&A
+		method f&a
+	
+pakage util -- 우리가 쓰기 편하게 우리가 직접 만든 라이브러리들
+	Interface JavaFlex_Name		// 사용 룰
+	class ScanUtil				// SCANNER 편하게
+	class JDBCUtil				// CONNECTION, PREPAREDSTATEMENT, RESULTSET을 편하게
+	class View					// 메소드 번호 부여 클래스.
