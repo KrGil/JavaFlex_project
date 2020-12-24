@@ -1,0 +1,391 @@
+--------------------------------------------------------
+--  DDL for Table ALIAS
+--------------------------------------------------------
+
+  CREATE TABLE "ALIAS" 
+   (	"ALIAS_CODE" VARCHAR2(50 BYTE), 
+	"MEM_ID" VARCHAR2(50 BYTE), 
+	"ALIAS_NAME" VARCHAR2(50 BYTE) DEFAULT 'GUEST'
+   ) ;
+
+   COMMENT ON COLUMN "ALIAS"."ALIAS_CODE" IS '별명코드';
+   COMMENT ON COLUMN "ALIAS"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "ALIAS"."ALIAS_NAME" IS '별명이름';
+   COMMENT ON TABLE "ALIAS"  IS '별명';
+--------------------------------------------------------
+--  DDL for Table CARD
+--------------------------------------------------------
+
+  CREATE TABLE "CARD" 
+   (	"CARD_CODE" VARCHAR2(50 BYTE), 
+	"CARD_COM" VARCHAR2(50 BYTE), 
+	"CARD_NO" NUMBER(16,0), 
+	"MEM_ID" VARCHAR2(50 BYTE), 
+	"CARD_CVC" NUMBER(3,0), 
+	"CARD_NAME" VARCHAR2(50 BYTE)
+   ) ;
+
+   COMMENT ON COLUMN "CARD"."CARD_CODE" IS '카드코드';
+   COMMENT ON COLUMN "CARD"."CARD_COM" IS '카드사';
+   COMMENT ON COLUMN "CARD"."CARD_NO" IS '카드번호';
+   COMMENT ON COLUMN "CARD"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "CARD"."CARD_CVC" IS '카드cvc';
+   COMMENT ON COLUMN "CARD"."CARD_NAME" IS '카드별명';
+   COMMENT ON TABLE "CARD"  IS '카드';
+--------------------------------------------------------
+--  DDL for Table MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "MEMBER" 
+   (	"MEM_ID" VARCHAR2(50 BYTE), 
+	"MEM_JOINDATE" DATE DEFAULT SYSDATE, 
+	"MEM_PASSWORD" VARCHAR2(50 BYTE), 
+	"CARD_CODE" VARCHAR2(50 BYTE)
+   ) ;
+
+   COMMENT ON COLUMN "MEMBER"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "MEMBER"."MEM_JOINDATE" IS '가입일';
+   COMMENT ON COLUMN "MEMBER"."MEM_PASSWORD" IS '비밀번호';
+   COMMENT ON COLUMN "MEMBER"."CARD_CODE" IS '카드코드';
+   COMMENT ON TABLE "MEMBER"  IS '회원';
+--------------------------------------------------------
+--  DDL for Table MEMBERSHIP
+--------------------------------------------------------
+
+  CREATE TABLE "MEMBERSHIP" 
+   (	"MEMBERSHIP" VARCHAR2(50 BYTE), 
+	"PRICE" NUMBER(8,0), 
+	"ALIAS_NO" NUMBER(1,0) DEFAULT 0
+   ) ;
+
+   COMMENT ON COLUMN "MEMBERSHIP"."MEMBERSHIP" IS '맴버쉽';
+   COMMENT ON COLUMN "MEMBERSHIP"."PRICE" IS '가격';
+   COMMENT ON COLUMN "MEMBERSHIP"."ALIAS_NO" IS '별명갯수';
+   COMMENT ON TABLE "MEMBERSHIP"  IS '맴버쉽';
+--------------------------------------------------------
+--  DDL for Table MOVIE
+--------------------------------------------------------
+
+  CREATE TABLE "MOVIE" 
+   (	"MOVIE_CODE" VARCHAR2(50 BYTE), 
+	"MOVIE_NAME" VARCHAR2(50 BYTE), 
+	"TYPE_LGU" VARCHAR2(50 BYTE), 
+	"MOVIE_VIEWCNT" NUMBER(5,0), 
+	"MOVIE_OPENDATE" DATE, 
+	"MOVIE_DETAIL" VARCHAR2(500 BYTE), 
+	"MOVIE_SCORE" NUMBER(5,0)
+   ) ;
+
+   COMMENT ON COLUMN "MOVIE"."MOVIE_CODE" IS '영화코드';
+   COMMENT ON COLUMN "MOVIE"."MOVIE_NAME" IS '영화이름';
+   COMMENT ON COLUMN "MOVIE"."TYPE_LGU" IS '영화분류코드';
+   COMMENT ON COLUMN "MOVIE"."MOVIE_VIEWCNT" IS '조회수';
+   COMMENT ON COLUMN "MOVIE"."MOVIE_OPENDATE" IS '개봉일';
+   COMMENT ON COLUMN "MOVIE"."MOVIE_DETAIL" IS '영화설명';
+   COMMENT ON COLUMN "MOVIE"."MOVIE_SCORE" IS '평점';
+   COMMENT ON TABLE "MOVIE"  IS '영화';
+--------------------------------------------------------
+--  DDL for Table PAY
+--------------------------------------------------------
+
+  CREATE TABLE "PAY" 
+   (	"PAY_CODE" VARCHAR2(50 BYTE), 
+	"MEM_ID" VARCHAR2(50 BYTE), 
+	"MEMBERSHIP" VARCHAR2(50 BYTE), 
+	"PAY_DATE" DATE
+   ) ;
+
+   COMMENT ON COLUMN "PAY"."PAY_CODE" IS '결제코드';
+   COMMENT ON COLUMN "PAY"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "PAY"."MEMBERSHIP" IS '맴버쉽';
+   COMMENT ON COLUMN "PAY"."PAY_DATE" IS '결제일';
+   COMMENT ON TABLE "PAY"  IS '결제';
+--------------------------------------------------------
+--  DDL for Table PICK_CHART
+--------------------------------------------------------
+
+  CREATE TABLE "PICK_CHART" 
+   (	"MOVIE_CODE" VARCHAR2(50 BYTE), 
+	"ALIAS_CODE" VARCHAR2(50 BYTE)
+   ) ;
+
+   COMMENT ON COLUMN "PICK_CHART"."MOVIE_CODE" IS '영화코드';
+   COMMENT ON COLUMN "PICK_CHART"."ALIAS_CODE" IS '별명코드';
+   COMMENT ON TABLE "PICK_CHART"  IS '찜목록';
+--------------------------------------------------------
+--  DDL for Table SCORE
+--------------------------------------------------------
+
+  CREATE TABLE "SCORE" 
+   (	"SCORE_CODE" VARCHAR2(50 BYTE), 
+	"MOVIE_CODE" VARCHAR2(50 BYTE), 
+	"ALIAS_CODE" VARCHAR2(50 BYTE), 
+	"SCORE_GOOD" NUMBER(5,0)
+   ) ;
+
+   COMMENT ON COLUMN "SCORE"."SCORE_CODE" IS '평점코드';
+   COMMENT ON COLUMN "SCORE"."MOVIE_CODE" IS '영화코드';
+   COMMENT ON COLUMN "SCORE"."ALIAS_CODE" IS '별명코드';
+   COMMENT ON COLUMN "SCORE"."SCORE_GOOD" IS '좋아요';
+   COMMENT ON TABLE "SCORE"  IS '평점';
+--------------------------------------------------------
+--  DDL for Table TYPE
+--------------------------------------------------------
+
+  CREATE TABLE "TYPE" 
+   (	"TYPE_LGU" VARCHAR2(50 BYTE), 
+	"TYPE_INDEX" NUMBER(5,0), 
+	"TYPE_NAME" VARCHAR2(50 BYTE)
+   ) ;
+
+   COMMENT ON COLUMN "TYPE"."TYPE_LGU" IS '영화분류코드';
+   COMMENT ON COLUMN "TYPE"."TYPE_INDEX" IS '인덱스';
+   COMMENT ON COLUMN "TYPE"."TYPE_NAME" IS '영화장르';
+   COMMENT ON TABLE "TYPE"  IS '영화장르';
+--------------------------------------------------------
+--  DDL for Table WATCH
+--------------------------------------------------------
+
+  CREATE TABLE "WATCH" 
+   (	"WATCH_CODE" VARCHAR2(50 BYTE), 
+	"MOVIE_CODE" VARCHAR2(50 BYTE), 
+	"ALIAS_CODE" VARCHAR2(50 BYTE), 
+	"WATCH_DATE" DATE
+   ) ;
+
+   COMMENT ON COLUMN "WATCH"."WATCH_CODE" IS '시청코드(영화코드00001)';
+   COMMENT ON COLUMN "WATCH"."MOVIE_CODE" IS '영화코드';
+   COMMENT ON COLUMN "WATCH"."ALIAS_CODE" IS '별명코드';
+   COMMENT ON COLUMN "WATCH"."WATCH_DATE" IS '시청날짜';
+   COMMENT ON TABLE "WATCH"  IS '시청';
+REM INSERTING into ALIAS
+SET DEFINE OFF;
+Insert into ALIAS (ALIAS_CODE,MEM_ID,ALIAS_NAME) values ('flex1','flex','sujin');
+Insert into ALIAS (ALIAS_CODE,MEM_ID,ALIAS_NAME) values ('flex2','flex','byounggil');
+Insert into ALIAS (ALIAS_CODE,MEM_ID,ALIAS_NAME) values ('flex3','flex','seil');
+REM INSERTING into CARD
+SET DEFINE OFF;
+Insert into CARD (CARD_CODE,CARD_COM,CARD_NO,MEM_ID,CARD_CVC,CARD_NAME) values ('sa1234789','SAMSUMG',123456789123,'flex',789,'내카드');
+REM INSERTING into MEMBER
+SET DEFINE OFF;
+Insert into MEMBER (MEM_ID,MEM_JOINDATE,MEM_PASSWORD,CARD_CODE) values ('flex',to_date('2020/12/24','RRRR/MM/DD'),'1234','sa1234789');
+REM INSERTING into MEMBERSHIP
+SET DEFINE OFF;
+Insert into MEMBERSHIP (MEMBERSHIP,PRICE,ALIAS_NO) values ('NON',0,0);
+Insert into MEMBERSHIP (MEMBERSHIP,PRICE,ALIAS_NO) values ('BASIC',9500,1);
+Insert into MEMBERSHIP (MEMBERSHIP,PRICE,ALIAS_NO) values ('STANDARD',12000,2);
+Insert into MEMBERSHIP (MEMBERSHIP,PRICE,ALIAS_NO) values ('PREMIUM',14500,4);
+REM INSERTING into MOVIE
+SET DEFINE OFF;
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13001','마션','130',52,to_date('2018/06/22','RRRR/MM/DD'),'한남자의 고독한 우주탈출기..',10);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13002','베놈','130',22,to_date('2013/09/24','RRRR/MM/DD'),'외계생물체 ''심비오트''가 숙주의 몸과 정신을 지배하며 능력을 발휘하는 ''베놈''....',60);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13003','헝거게임','130',44,to_date('2012/11/24','RRRR/MM/DD'),'《헝거 게임》은 수잰 콜린스의 소설 시리즈 《헝거 게임 삼부작》을 영화화한 일련의 시리즈이다....',48);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13004','인터스텔라','130',26,to_date('2006/05/15','RRRR/MM/DD'),'우린 답을 찾을 거야, 늘 그랬듯이”세계 각국의 정부와 경제가 완전히 붕괴된 미래가 다가온다....',99);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13005','원더우먼','130',88,to_date('2001/07/14','RRRR/MM/DD'),'《원더 우먼 1984》는 2020년 개봉한 미국의 슈퍼히어로 영화로, 2017년 영화 《원더우먼》...',87);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13006','토르','130',46,to_date('2010/08/06','RRRR/MM/DD'),'토르 오딘슨(Thor Odinson)은 마블 코믹스의 슈퍼히어로이다. 북유럽 신화에서 동명의 신 토르를 기반....',56);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13007','터미네이터','130',32,to_date('2012/01/01','RRRR/MM/DD'),'기계들은 인류를 말살하기 위해 수십년간 치열한 소탕전을 벌였다. 그러나 마지막 전투를 위해 예비된 시점은 미래가 아닌 우리가....',25);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13008','해리포터','130',13,to_date('2019/06/08','RRRR/MM/DD'),'이모네 집 계단 밑 벽장에서 생활하던 11살 소년 해리 포터가 호그와트 마법학교에 가면서 겪게 되는 판타지....',46);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13009','킹스맨','130',25,to_date('2021/01/08','RRRR/MM/DD'),'세상에서 가장 위험한 면접이 시작된다! 높은 IQ, 주니어 체조대회 2년 연속 우승! 그러나 학교 중퇴, 해병대 중도 하차.동네 패싸움에 직장.....',13);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('13010','로건','130',79,to_date('2021/01/23','RRRR/MM/DD'),'가까운 미래, 능력을 잃어가는 ‘로건(울버린)’은 멕시코 국경 근처의 한 은신처에서 병든 ‘프로페서 X’를 돌보며 살아간다.....',22);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15001','반도','150',99,to_date('2014/06/05','RRRR/MM/DD'),'부산행의 속편으로 이번에는 한반도 전체다! .....',18);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15002','겟아웃','150',13,to_date('2014/09/24','RRRR/MM/DD'),'흑인 남자가 백인 여자친구 집에 초대 받으면서 벌어지는 이야기....',46);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15003','애나벨','150',64,to_date('2011/09/09','RRRR/MM/DD'),'1971년 워렌 부부, 로드 아일랜드에 거주하는 페론 가족에게 일어난 초자연적 사건 해결...',67);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15004','부산행','150',42,to_date('2017/07/28','RRRR/MM/DD'),'정체불명의 바이러스가 전국으로 확산되고 대한민국 긴급재난경보령이 선포된 가운데,열차에 몸을 실은 사람들은 단 하나의....',12);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15005','그것','150',46,to_date('2006/02/28','RRRR/MM/DD'),'살인과 실종사건이 이상하게 많이 생기는 데리라는 마을, 비 오는 어느 날 종이배를 들고 나간 동생이 사라졌다.....',80);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15006','컨저링','150',77,to_date('2004/07/02','RRRR/MM/DD'),'1971년 로드 아일랜드, 해리스빌. 페론 가족은 꿈에 그리던 새 집으로 이사를 간다. 물론 1863년에 그 집에서 일어난 끔찍한 살인 사건....',78);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15007','창궐','150',64,to_date('2003/07/08','RRRR/MM/DD'),'밤에만 활동하는 산 자도 죽은 자도 아닌 ‘야귀(夜鬼)‘가 창궐한 세상, 위기의 조선으로 돌아온 왕자....',69);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15008','곤지암','150',46,to_date('2017/12/24','RRRR/MM/DD'),'1979년 환자 42명의 집단 자살과 병원장의 실종 이후,섬뜩한 괴담으로 둘러싸인 곤지암 정신병원으로공포체험을 떠난 7명의 멤버들....',38);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15009','살아있다','150',86,to_date('2021/01/02','RRRR/MM/DD'),'어제와 다른 오늘의이야기. 아침 10시. 유튜버 꿈나무인 준우(유아인 분)는. 평소와 같이 밤늦게까지 게임을 즐기다.....',16);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('15010','미이라','150',17,to_date('2021/01/20','RRRR/MM/DD'),'사막 한 가운데, 고대 이집트 미이라의 무덤을 발견한 닉(톰 크루즈)은 미이라의 관을 수송하던 중 의문의 비행기 추락사고로 사망한다....',91);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12001','엑시트','120',95,to_date('2019/05/06','RRRR/MM/DD'),'대학교 산악 동아리 에이스 출신이지만 졸업 후 몇 년째 취업 실패로 눈칫밥만 먹는 용남은 온 가족이 참석한 어머니의 칠순 잔치에서 연회장 직원으로 취업한 동아리 후배 의주를 만난다....',80);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12002','럭키','120',30,to_date('2017/03/15','RRRR/MM/DD'),'냉혹한 킬러 형욱(유해진)은 사건 처리 후 우연히 들른 목욕탕에서 비누를 밟고 넘어져 과거의 기억을 잃게 된다.....',20);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12003','극한직업','120',60,to_date('2018/08/16','RRRR/MM/DD'),'치킨장사로 눈코 뜰 새 없이 바빠진 마약반에게 어느 날 절호의 기회가 찾아오는데… 범인을 잡을 것인가, 닭을 잡을 것인가!',54);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12004','스물','120',13,to_date('2015/03/07','RRRR/MM/DD'),'인생의 가장 부끄러운 순간을 함께 한 스무살 동갑내기 세 친구의 자체발광 코미디!',32);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12005','탐정','120',5,to_date('2013/02/17','RRRR/MM/DD'),'"우리가 가는 길 미제사건이란 없다" 최강 트리플 콤비의 본격 추리가 시작된다!',65);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12006','완벽한 타인','120',71,to_date('2014/04/28','RRRR/MM/DD'),'7명의 친구들이 모인 저녁 파티에서 게임을 하기로 결정한다.',77);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12007','미스터주','120',25,to_date('2018/05/19','RRRR/MM/DD'),'사라진 VIP를 찾기 위한 인간과 동물들의 역대급 팀플레이가 시작된다!',91);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12008','화이트칙스','120',63,to_date('2008/10/11','RRRR/MM/DD'),'금발미녀가 된 그들, 아니 그녀들은 알고보면 첩보전을 능가하는 칵테일 파티와 총격전보다 살벌한 패션쇼 등 재벌계의 엄청난 사생활에 말려들기 시작하는데...?!',13);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12009','수상한그녀','120',99,to_date('2021/01/03','RRRR/MM/DD'),'대한민국에 웃음 보따리를 안겨줄 <수상한 그녀>가 온다!',25);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('12010','걸캅스','120',11,to_date('2021/01/20','RRRR/MM/DD'),'걸크러시 콤비의 비공식 합동 수사가 펼쳐진다!',5);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14001','드래곤 길들이기','140',23,to_date('2009/05/09','RRRR/MM/DD'),'드래곤들의 친구가 된 ‘히컵’. 그들과의 새로운 생활을 만끽하던 ‘히컵’은 드래곤들의 위험한 비밀을 알게 되는데…',48);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14002','코코','140',35,to_date('2010/07/03','RRRR/MM/DD'),'뮤지션을 꿈꾸는 소년 미구엘은 전설적인 가수 에르네스토의 기타에 손을 댔다 ‘죽은 자들의 세상’에 들어가게 된다.',66);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14003','겨울왕국','140',45,to_date('2018/09/01','RRRR/MM/DD'),'서로가 최고의 친구였던 자매 ‘엘사’와 ‘안나’. 하지만 언니 ‘엘사’에게는 하나뿐인 동생에게조차 말 못할 비밀이 있다. ',35);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14004','인크레더블','140',68,to_date('2019/11/12','RRRR/MM/DD'),'은퇴한지 15년, 이미 몸은 초강력 허리띠조차 튕겨버릴 정도로 망가져버린 밥이 다시 빛나는 영웅으로 복귀할 수 있을지... ',79);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14005','빅 히어로','140',72,to_date('2017/03/02','RRRR/MM/DD'),'천재 공학도 ‘테디’가 개발한 힐링로봇 ‘베이맥스’!',98);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14006','알라딘','140',98,to_date('2019/09/30','RRRR/MM/DD'),'키우는 원숭이 아부와 함께 살아가는 아그라바의 좀도둑 알라딘은 어느 날 궁궐을 탈출한 술탄의 딸 자스민에게 한눈에 반한다',13);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14007','미니언즈','140',89,to_date('2010/01/02','RRRR/MM/DD'),'인류가 탄생하기 훨씬 오래 전, 태초에 미니언이 있었다.',21);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14008','토토로','140',3,to_date('2005/10/22','RRRR/MM/DD'),'도시를 떠나 시골로 이사 온 ‘사츠키’와 ‘메이’는 우연히 숲속에 살고 있는 신비로운 생명체 ‘토토로’를 만나 신비한 모험을 함께 한다.',65);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14009','토이스토리','140',15,to_date('2021/01/04','RRRR/MM/DD'),'카우보이와 우주전사는 목숨을 건 모험을 통해 진정한 우정과 신뢰를 배우게 된다.',88);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('14010','인사이드 아웃','140',50,to_date('2021/01/19','RRRR/MM/DD'),'지금 당신의 머릿속에서 벌어지는 놀라운 일! 하루에도 몇번씩 변하는 감정의 비밀이 밝혀진다!',93);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16001','아마존의 눈물','160',95,to_date('1999/01/01','RRRR/MM/DD'),'아마존이 슬퍼서 눈물 흘리는 영화',88);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16002','워낭소리','160',93,to_date('2011/11/11','RRRR/MM/DD'),'워어엉어엉소리나는 영화',67);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16003','우리의 지구','160',1,to_date('2010/01/02','RRRR/MM/DD'),'우리의 지구는 아름다워',52);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16004','길 위의 셰프들','160',10,to_date('2008/01/12','RRRR/MM/DD'),'길거리에서 고구마 구워먹기',15);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16005','더 셰프 쇼','160',15,to_date('1998/05/07','RRRR/MM/DD'),'솊솊!! 아 쉑쉑버거',47);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16006','비욘세의 홈커밍','160',42,to_date('2004/01/02','RRRR/MM/DD'),'암 커밍!!! 파 프롬 호옴 by 욘세누님',38);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16007','인사이드 빌 게이츠','160',88,to_date('2007/07/06','RRRR/MM/DD'),'자바좀 가르쳐주세요 빌게이츠형님',27);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16008','풍미 원산지','160',25,to_date('2008/03/27','RRRR/MM/DD'),'풍미로운 원산지 대전!',19);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16009','13번째','160',12,to_date('2021/01/22','RRRR/MM/DD'),'14번째 시도입니다.',27);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('16010','더 킬 팀','160',5,to_date('2021/01/01','RRRR/MM/DD'),'더팀킬! 우리 사이에 범인이 있다! 어몽어스,,',34);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11001','어바웃타임','110',83,to_date('2001/03/05','RRRR/MM/DD'),'시간이 지나면',18);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11002','이프 온리','110',78,to_date('2002/04/06','RRRR/MM/DD'),'만약 오직',81);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11003','만추','110',42,to_date('2003/04/02','RRRR/MM/DD'),'만의 무게',64);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11004','노트북','110',66,to_date('2004/08/02','RRRR/MM/DD'),'우리 모두 노트북으로 작업합시다',50);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11005','미 비포 유','110',20,to_date('2005/03/07','RRRR/MM/DD'),'니 전에 나',37);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11006','너의 결혼식','110',24,to_date('2006/03/07','RRRR/MM/DD'),'파탄',18);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11007','타이타닉','110',99,to_date('1995/01/01','RRRR/MM/DD'),'반쪽난 배의 슬픔',27);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11008','너의 소녀시대','110',12,to_date('2007/06/21','RRRR/MM/DD'),'지지지지 벱베벱베',38);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11009','오늘의 연애','110',34,to_date('2021/01/18','RRRR/MM/DD'),'나는 오라클과 연애한다.',15);
+Insert into MOVIE (MOVIE_CODE,MOVIE_NAME,TYPE_LGU,MOVIE_VIEWCNT,MOVIE_OPENDATE,MOVIE_DETAIL,MOVIE_SCORE) values ('11010','가장 보통의 연애','110',62,to_date('2021/01/08','RRRR/MM/DD'),'나는 자바와 연애한다.',38);
+REM INSERTING into PAY
+SET DEFINE OFF;
+Insert into PAY (PAY_CODE,MEM_ID,MEMBERSHIP,PAY_DATE) values ('flexP01','flex','PREMIUM',to_date('2020/12/24','RRRR/MM/DD'));
+REM INSERTING into PICK_CHART
+SET DEFINE OFF;
+Insert into PICK_CHART (MOVIE_CODE,ALIAS_CODE) values ('13001','flex1');
+REM INSERTING into SCORE
+SET DEFINE OFF;
+Insert into SCORE (SCORE_CODE,MOVIE_CODE,ALIAS_CODE,SCORE_GOOD) values ('GOOD13001flex1','13001','flex1',1);
+REM INSERTING into TYPE
+SET DEFINE OFF;
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('110',1,'로멘스/멜로');
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('120',2,'코미디');
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('130',3,'SF/판타지');
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('140',4,'애니메이션');
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('150',5,'공포/스릴러');
+Insert into TYPE (TYPE_LGU,TYPE_INDEX,TYPE_NAME) values ('160',6,'다큐');
+REM INSERTING into WATCH
+SET DEFINE OFF;
+Insert into WATCH (WATCH_CODE,MOVIE_CODE,ALIAS_CODE,WATCH_DATE) values ('13001flex1','13001','flex1',to_date('2020/12/24','RRRR/MM/DD'));
+--------------------------------------------------------
+--  DDL for Index PK_ALIAS
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_ALIAS" ON "ALIAS" ("ALIAS_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_CARD
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_CARD" ON "CARD" ("CARD_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_MEMBER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_MEMBER" ON "MEMBER" ("MEM_ID") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_MEMBERSHIP
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_MEMBERSHIP" ON "MEMBERSHIP" ("MEMBERSHIP") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_MOVIE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_MOVIE" ON "MOVIE" ("MOVIE_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_PAY
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_PAY" ON "PAY" ("PAY_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_PICK_CHART
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_PICK_CHART" ON "PICK_CHART" ("MOVIE_CODE", "ALIAS_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_SCORE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_SCORE" ON "SCORE" ("SCORE_CODE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_TYPE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_TYPE" ON "TYPE" ("TYPE_LGU") 
+  ;
+--------------------------------------------------------
+--  DDL for Index PK_WATCH
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_WATCH" ON "WATCH" ("WATCH_CODE") 
+  ;
+--------------------------------------------------------
+--  Constraints for Table ALIAS
+--------------------------------------------------------
+
+  ALTER TABLE "ALIAS" ADD CONSTRAINT "PK_ALIAS" PRIMARY KEY ("ALIAS_CODE") ENABLE;
+  ALTER TABLE "ALIAS" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "ALIAS" MODIFY ("ALIAS_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table CARD
+--------------------------------------------------------
+
+  ALTER TABLE "CARD" ADD CONSTRAINT "PK_CARD" PRIMARY KEY ("CARD_CODE") ENABLE;
+  ALTER TABLE "CARD" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "CARD" MODIFY ("CARD_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MEMBER
+--------------------------------------------------------
+
+  ALTER TABLE "MEMBER" ADD CONSTRAINT "PK_MEMBER" PRIMARY KEY ("MEM_ID") ENABLE;
+  ALTER TABLE "MEMBER" MODIFY ("CARD_CODE" NOT NULL ENABLE);
+  ALTER TABLE "MEMBER" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MEMBERSHIP
+--------------------------------------------------------
+
+  ALTER TABLE "MEMBERSHIP" ADD CONSTRAINT "PK_MEMBERSHIP" PRIMARY KEY ("MEMBERSHIP") ENABLE;
+  ALTER TABLE "MEMBERSHIP" MODIFY ("PRICE" NOT NULL ENABLE);
+  ALTER TABLE "MEMBERSHIP" MODIFY ("MEMBERSHIP" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MOVIE
+--------------------------------------------------------
+
+  ALTER TABLE "MOVIE" ADD CONSTRAINT "PK_MOVIE" PRIMARY KEY ("MOVIE_CODE") ENABLE;
+  ALTER TABLE "MOVIE" MODIFY ("TYPE_LGU" NOT NULL ENABLE);
+  ALTER TABLE "MOVIE" MODIFY ("MOVIE_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PAY
+--------------------------------------------------------
+
+  ALTER TABLE "PAY" ADD CONSTRAINT "PK_PAY" PRIMARY KEY ("PAY_CODE") ENABLE;
+  ALTER TABLE "PAY" MODIFY ("MEMBERSHIP" NOT NULL ENABLE);
+  ALTER TABLE "PAY" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "PAY" MODIFY ("PAY_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PICK_CHART
+--------------------------------------------------------
+
+  ALTER TABLE "PICK_CHART" ADD CONSTRAINT "PK_PICK_CHART" PRIMARY KEY ("MOVIE_CODE", "ALIAS_CODE") ENABLE;
+  ALTER TABLE "PICK_CHART" MODIFY ("ALIAS_CODE" NOT NULL ENABLE);
+  ALTER TABLE "PICK_CHART" MODIFY ("MOVIE_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table SCORE
+--------------------------------------------------------
+
+  ALTER TABLE "SCORE" ADD CONSTRAINT "PK_SCORE" PRIMARY KEY ("SCORE_CODE") ENABLE;
+  ALTER TABLE "SCORE" MODIFY ("ALIAS_CODE" NOT NULL ENABLE);
+  ALTER TABLE "SCORE" MODIFY ("MOVIE_CODE" NOT NULL ENABLE);
+  ALTER TABLE "SCORE" MODIFY ("SCORE_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table TYPE
+--------------------------------------------------------
+
+  ALTER TABLE "TYPE" ADD CONSTRAINT "PK_TYPE" PRIMARY KEY ("TYPE_LGU") ENABLE;
+  ALTER TABLE "TYPE" MODIFY ("TYPE_LGU" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table WATCH
+--------------------------------------------------------
+
+  ALTER TABLE "WATCH" ADD CONSTRAINT "PK_WATCH" PRIMARY KEY ("WATCH_CODE") ENABLE;
+  ALTER TABLE "WATCH" MODIFY ("ALIAS_CODE" NOT NULL ENABLE);
+  ALTER TABLE "WATCH" MODIFY ("MOVIE_CODE" NOT NULL ENABLE);
+  ALTER TABLE "WATCH" MODIFY ("WATCH_CODE" NOT NULL ENABLE);
