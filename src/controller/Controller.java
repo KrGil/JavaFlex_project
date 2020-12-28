@@ -14,7 +14,7 @@ public class Controller {
 	private static MovieOpeningService movieOpeningService = MovieOpeningService.getInstance();
 	void start(){
 		movieTopService.viewCnt();
-		movieTopService.score();
+		movieTopService.viewScore();
 		movieOpeningService.d_10();
 		movieOpeningService.d_30();
 		

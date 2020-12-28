@@ -20,6 +20,18 @@ public class MovieOpeningService {
 	private MovieOpeningDao movieOpeningDao = MovieOpeningDao.getInstance();
 	static SimpleDateFormat form = new SimpleDateFormat("YYYY/MM/DD");
 	
+	public int openingPage(){
+		System.out.println("1.10일 이내   2.30일 이내");
+		int input = ScanUtil.nextInt();
+		if(input == 1){
+			d_10();
+		}else if(input == 2){
+			d_30();
+		}else{
+			System.out.println("제대로 입력해 주세요.");
+		}
+		return View.OPENING_PAGE;
+	}
 	public int d_10()	{
 		// d-10일
 		System.out.println("=========계봉 예정 10일 안의 작품들 ==========");
