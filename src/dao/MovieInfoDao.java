@@ -36,8 +36,46 @@ public class MovieInfoDao {
 		return jdbc.update(sql, param);
 	}
 	//좋아요 ++
-	public int updateGood(){
-		String sql = "";
-		return jdbc.update(sql);
+	public int updateGood(String movie_code){
+		String sql = "UPDATE movie SET movie_score = movie_score+1"
+				+ " WHERE MOVIE_CODE = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(movie_code);
+		return jdbc.update(sql,param);
+	}
+	//좋아요 --
+	public int updateBad(String movie_code){
+		String sql = "UPDATE movie SET movie_score ="
+				+ " CASE"
+				+ " WHEN movie_score > 0 THEN movie_score-1"
+				+ " ELSE movie_score END"
+				+ " WHERE MOVIE_CODE = ?"; 
+		List<Object> param = new ArrayList<>();
+		param.add(movie_code);
+		return jdbc.update(sql,param);
+	}
+	// 좋아요 score
+	public int insertGoodScore(Map<String, Object> info){
+		String sql = "INSERT INTO score "
+				+ " VALUES (?, ?, ?, 1)";
+		List<Object> param = new ArrayList<>();
+		
+		param.add(info.get("SCORE_CODE"));
+		param.add(info.get("MOVIE_CODE"));
+		param.add(info.get("ALIAS_CODE"));
+		
+		return jdbc.update(sql, param);
+	}
+	// 시러요 score
+	public int insertBadScore(Map<String, Object> info){
+		String sql = "UPDATE score SET score_good = 0"
+				+ " WHERE score_code = ?"
+				+ " AND alias_code = ?";
+		List<Object> param = new ArrayList<>();
+		
+		param.add(info.get("SCORE_CODE"));
+		param.add(info.get("ALIAS_CODE"));
+		
+		return jdbc.update(sql, param);
 	}
 }

@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,21 +45,56 @@ public class MovieInfoService {
 		case 1: if(movie_watch(movie_code) > 0){
 					System.out.println("영화를 보았습니다.");
 				}break;
-		case 2: moviePick_chart();
-		case 3: movieScore();
+		case 2: moviePick_chart(); break;
+		case 3: System.out.println("1.좋아요\t2.싫어요");
+				int input1 = ScanUtil.nextInt();
+				if(input1 == 1){
+					if(movieScoreGood(movie_code) > 0){
+						System.out.println("평가를 성공하였습니다.");
+					}
+				}else if(input1 == 2){
+					if(movieScoreBad(movie_code) > 0){
+						System.out.println("싫어요는 싫은데 ㅠ");
+					}else{
+						System.out.println("싫어요는 거절하겠어.");
+					}
+				}else{
+					System.out.println("제대로 입력해 주세요.");
+				}break;
 		case 4: return View.MAIN_PAGE;
 		}
 		return View.TOP_VIEWCNT_LIST_PAGE;
 	}
-	
+	//조회수
 	public int movie_watch(String movie_code){
 		return movieInfoDao.updateViewCnt(movie_code);
 	}
 	public void moviePick_chart(){
-		
 	}
-	public int movieScore(){
+	//조아요++
+	public int movieScoreGood(String movie_code){
 		//score, movie
-		return movieInfoDao.updateGood();
+		Map<String, Object> param = new HashMap<>();
+		
+		param.put("ALIAS_CODE", Controller.loginAlias.get("ALIAS_CODE"));
+		param.put("MOVIE_CODE", movie_code);
+		String score_code = "GOOD"+movie_code+Controller.loginAlias.get("ALIAS_CODE");
+		param.put("SCORE_CODE", score_code);
+		movieInfoDao.updateGood(movie_code);
+		
+		return movieInfoDao.insertGoodScore(param);
+	}
+	//조아요--
+	public int movieScoreBad(String movie_code){
+		//score, movie
+		Map<String, Object> param = new HashMap<>();
+		
+		param.put("ALIAS_CODE", Controller.loginAlias.get("ALIAS_CODE"));
+		param.put("MOVIE_CODE", movie_code);
+		String score_code = "GOOD"+movie_code+Controller.loginAlias.get("ALIAS_CODE");
+		param.put("SCORE_CODE", score_code);
+		movieInfoDao.updateBad(movie_code);
+		
+		return movieInfoDao.insertBadScore(param);
 	}
 }

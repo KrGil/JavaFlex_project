@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 import service.MemberService;
@@ -12,7 +13,7 @@ import dao.MovieTopDao;
 
 public class Controller {
 	public static Map<String, Object> loginMember; //로그인정보를 담을 변수
-	public static Map<String, Object> loginAlias; //멤버정보를 담을 변수
+	public static Map<String, Object> loginAlias = new HashMap<String, Object>(); //멤버정보를 담을 변수
 	public static String pick_movieCode;
 	private static MovieTopService movieTopService = MovieTopService.getInstance();
 	private static MovieOpeningService movieOpeningService = MovieOpeningService.getInstance();
@@ -21,6 +22,8 @@ public class Controller {
 	public static SimpleDateFormat formY = new SimpleDateFormat("YYYY");
 	
 	void start(){
+		loginAlias.put("ALIAS_CODE", "flex1");
+		
 		movieTopService.top_page();
 		movieOpeningService.openingPage();
 	}
