@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import controller.Controller;
 import util.ScanUtil;
 import util.View;
 import dao.MovieOpeningDao;
@@ -18,7 +19,7 @@ public class MovieOpeningService {
 		return instance;
 	}
 	private MovieOpeningDao movieOpeningDao = MovieOpeningDao.getInstance();
-	static SimpleDateFormat form = new SimpleDateFormat("YYYY/MM/DD");
+	
 	
 	public int openingPage(){
 		System.out.println("1.10일 이내   2.30일 이내");
@@ -41,7 +42,7 @@ public class MovieOpeningService {
 			
 			System.out.println("MOVIE NAME : " + movie.get("MOVIE_NAME"));
 			System.out.println("MOVIE SCORE: " + movie.get("MOVIE_SCORE"));
-			System.out.println("MOVIE DATE : " + form.format(movie.get("MOVIE_OPENDATE")));
+			System.out.println("MOVIE DATE : " + Controller.form.format(movie.get("MOVIE_OPENDATE")));
 			System.out.println();
 		}
 		System.out.println("===================================");
@@ -49,6 +50,8 @@ public class MovieOpeningService {
 		int input = ScanUtil.nextInt();
 		if(input == 1){
 			return View.MOVIE_INFO_PAGE;
+		}else if(input == 2) {
+			return View.OPENING_PAGE;
 		}else{
 			return View.MAIN_PAGE;
 		}
@@ -63,7 +66,7 @@ public class MovieOpeningService {
 			
 			System.out.println("MOVIE NAME : " + movie.get("MOVIE_NAME"));
 			System.out.println("MOVIE SCORE: " + movie.get("MOVIE_SCORE"));
-			System.out.println("MOVIE DATE : " + form.format(movie.get("MOVIE_OPENDATE")));
+			System.out.println("MOVIE DATE : " + Controller.form.format(movie.get("MOVIE_OPENDATE")));
 			System.out.println();
 		}
 		System.out.println("===================================");
@@ -71,9 +74,12 @@ public class MovieOpeningService {
 		int input = ScanUtil.nextInt();
 		if(input == 1){
 			return View.MOVIE_INFO_PAGE;
+		}else if(input == 2) {
+			return View.OPENING_PAGE;
 		}else{
 			return View.MAIN_PAGE;
 		}
+		
 		
 	}
 

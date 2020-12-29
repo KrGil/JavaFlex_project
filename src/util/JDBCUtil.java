@@ -90,7 +90,7 @@ public class JDBCUtil {
 			}
 			rs = ps.executeQuery();
 			
-			//값받기
+			//값받기	  
 			ResultSetMetaData md = rs.getMetaData();
 			int columnCount = md.getColumnCount();
 			while(rs.next()){
@@ -214,6 +214,7 @@ public class JDBCUtil {
 		return result;
 	}
 }
+
 
 
 

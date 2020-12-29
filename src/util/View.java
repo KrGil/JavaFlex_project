@@ -27,7 +27,7 @@ public class View {
 	public static final int SEARCH_LIST_PAGE = 14;
 	public static final int RECOMMEND_LIST_PAGE = 15;
 	public static final int TOP_GOOD_LIST_PAGE = 16;
-	public static final int TOP_VIEWCNT_LSIT_PAGE = 17;
+	public static final int TOP_VIEWCNT_LIST_PAGE = 17;
 	public static final int D10_LIST_PAGE = 18;
 	public static final int D30_LIST_PAGE = 19;
 	
