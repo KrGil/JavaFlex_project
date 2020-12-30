@@ -45,9 +45,9 @@ public class MemberService {
 	//로그인 화면
 	public int login(){
 		System.out.println("==========로그인=============");
-		System.out.println("아이디>");
+		System.out.println("🚩아이디:");
 		String memberId = ScanUtil.nextLine();
-		System.out.println("비밀번호>");
+		System.out.println("🚩비밀번호:");
 		String password = ScanUtil.nextLine();
 		
 		Map<String,Object> member = memberDao.selectLogin(memberId, password); //memName, card, alias, likeType);
@@ -136,7 +136,7 @@ public class MemberService {
 		
 		liketypeIn(); //----------------------------------------- 5
 		
-		System.out.println("회원가입이 완료되었습니다!");
+		System.out.println("  😍 회원가입이 완료되었습니다 😍    !");
 		
 		return View.HOME;
 	}
@@ -178,7 +178,7 @@ public class MemberService {
 	
 	//카드페이지x 카드 정보만 들고 가기.
 	public int card(){
-		System.out.println("결제 페이지입니다. 등록하실 카드 12자리를 입력해주세요 (-제외)");
+		System.out.println("🚩카드번호 12자리를 입력해주세요(-제외) :");
 		vCardNum = ScanUtil.nextLine();
 		if(vCardNum.length() == 12){
 			System.out.println("카드입력에 성공하셨습니다.");
@@ -186,11 +186,11 @@ public class MemberService {
 			System.out.println("카드번호를 잘못 입력하셨습니다.");
 		}
 
-		System.out.println("카드 뒷면의 cvc 번호를 입력해주세요");
+		System.out.println("🚩카드 뒷면의 CVC 번호를 입력해주세요 :");
 		vCardcCvc = ScanUtil.nextInt();
-		System.out.println("등록하실 카드에 정할 명칭,별칭을 입력해주세요 ");
+		System.out.println("🚩등록하실 카드에 정할 명칭,별칭을 입력해주세요 : ");
 		vCardName = ScanUtil.nextLine();
-		System.out.println("카드사를 선택해주세요");
+		System.out.println("🚩카드사를 선택해주세요:");
 		System.out.println("1.삼성\t2.하나 \t3.국민\t4.농협");
 		int input = ScanUtil.nextInt();
 		
@@ -217,7 +217,7 @@ public class MemberService {
 	
 	//선호장르
 	public int likeType(){
-		System.out.println("선호하는 영화 장르를 선택하세요");
+		System.out.println("🚩선호하는 영화 장르를 선택하세요");
 		System.out.println("1.로맨스/멜로\t2.코미디\t3.SF/판타지\t4.애니메이션\t5.공포/스릴러\t6.다큐");
 		int input = ScanUtil.nextInt();
 		

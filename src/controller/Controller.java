@@ -97,9 +97,9 @@ public class Controller {
 	}
 	private int home() {
 		System.out.println("-----------------------------------------");
-		System.out.println("1.로그인\t2.회원가입\t3.고객센터\t0.프로그램 종료");
+		System.out.println("1.로그인\t2.회원가입 \t3.고객센터 \t0.프로그램 종료");
 		System.out.println("-----------------------------------------");
-		System.out.println("번호 입력>");
+		System.out.println("🚩번호 입력");
 		try{
 			int input = ScanUtil.nextInt();
 			switch (input){
@@ -112,7 +112,7 @@ public class Controller {
 				break;
 			}
 		}catch(Exception e){
-			System.out.println("번호를 입력해 주세요.");
+			System.out.println("🚩 사용하실번호를 입력해 주세요.");
 		}
 		return View.HOME;
 	}
@@ -141,7 +141,7 @@ public class Controller {
 				System.out.println("----------------------------------------------------------------------------------");
 				System.out.println("1.마이페이지\t2.영화검색\t3.추천영화보기\t4.Top10영화보기\t5.개봉예정작\t0.돌아가기");
 				System.out.println("----------------------------------------------------------------------------------");
-				System.out.println("번호 입력>");
+				System.out.println("🚩번호 입력");
 				int input = ScanUtil.nextInt();
 				
 				switch (input){
