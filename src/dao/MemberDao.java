@@ -4,83 +4,137 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import controller.Controller;
 import util.JDBCUtil;
-	public class MemberDao {
-		//싱글톤 패턴으로 만듦.
-		private static MemberDao instance;
-		private MemberDao(){} 
-		public static MemberDao getInstance(){
-			if(instance == null){
-				instance = new MemberDao();
-			}
-			return instance;
-		}
-		
-		private JDBCUtil jdbc = JDBCUtil.getInstance();
-		
-		public int insertUser(Map<String, Object> param){
-			String sql = "INSERT INTO TB_JDBC_USER VALUES (?,?,?)";
-			
-			
-			List<Object> p = new ArrayList<>();
-			p.add(param.get("USER_ID"));
-			p.add(param.get("PASSWORD"));
-			p.add(param.get("USER_NAME"));
-			
-			return jdbc.update(sql,p);
-		}
-		public Map<String, Object> selectUser(String userId, String password) {
-			String sql = "SELECT USER_ID, PASSWORD, USER_NAME "
-						+ "FROM TB_JDBC_USER "
-						+ "WHERE USER_ID = ? "
-						+ "AND PASSWORD = ?";
-			List<Object> param = new ArrayList<>();
-			param.add(userId);
-			param.add(password);
-			
-			return jdbc.selectOne(sql, param);
-		}
-/////////////////////////////////////////////////////////////////////
+import controller.Controller;
 
-//싱글톤 패턴
+
+public class MemberDao {
+	//싱글톤 패턴
+	private static MemberDao instance;
+	private MemberDao(){}
+	public static MemberDao getInstance(){
+		if(instance == null){
+			instance = new MemberDao();
+			
+		}
+		return instance;
+	}
+	
+	private static JDBCUtil jdbc = JDBCUtil.getInstance();
 
 	public int insertMember(Map<String, Object> param){
-		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO MEMBER VALUES(?,SYSDATE,?,?,1)";
+		
 		List<Object> p = new ArrayList<>();
 		p.add(param.get("MEM_ID"));
-		p.add(param.get("PASSWORD"));
-		p.add(param.get("MEM_NAME"));
-		p.add(param.get("MEM_SHIP"));
-		p.add(param.get("CARD"));
-		p.add(param.get("ALIAS"));
-		p.add(param.get("LIKE_TYPE"));
+		p.add(param.get("MEM_PASSWORD"));
+		p.add(param.get("CARD_CODE"));
 		
 		return jdbc.update(sql,p);
+		
 	}
+	
+	
+	public int insertCard(Map<String, Object> param){
+		String sql = "INSERT INTO CARD VALUES(?,?,?,?,?,?)";
+		
+		List<Object> p = new ArrayList<>();
+		p.add(param.get("CARD_CODE"));
+		p.add(param.get("CARD_COM"));
+		p.add(param.get("CARD_NO"));
+		p.add(param.get("MEM_ID"));
+		p.add(param.get("CARD_CVC"));
+		p.add(param.get("CARD_NAME"));
+	
+		return jdbc.update(sql,p);
+	}
+	
+	public int insertType(Map<String, Object> param){
+		String sql = "INSERT INTO WATCH VALUES(?,?,SYSDATE)";
+		List<Object> p = new ArrayList<>();
+		p.add(param.get("MOVIE_CODE"));
+		p.add(param.get("ALIAS_CODE"));
+		return jdbc.update(sql,p);
+	}
+	
+	
+//	public int insertMembership(Map<String, Object> param){
+//	//public  int insertMembership(List<Object> ArrayList){
+//		
+//		String sql = "INSERT INTO PAY VALUES (?,?,?,SYSDATE)";
+//		List<Object> p = new ArrayList<>();
+//		p.add(param.get("PAY_CODE"));
+//		p.add(param.get("MEM_ID"));
+//		p.add(param.get("MEMBERSHIP"));
+//		
+//		return jdbc.update(sql,p);
+//	}
+
+	public int insertMembership(Map<String, Object> param){
+		
+		String sql = "INSERT INTO PAY VALUES (?,?,?,SYSDATE)";
+		List<Object> p = new ArrayList<>();
+		p.add(param.get("PAY_CODE"));
+		p.add(param.get("MEM_ID"));
+		p.add(param.get("MEMBERSHIP"));
+		return  jdbc.update(sql,p);
+	}
+		//맴버쉽 등급을 회원가입할때 넣는거라 회원가입부터해야함 
+		
+	
+
 	
 	public List<Map<String, Object>> selectAlias(){
 		Map<String,Object> member= Controller.loginMember;
 		String sql = "SELECT * "
-				+ " FROM ALIAS"
-				+ " WHERE MEM_ID = ? ";
+					+ " FROM ALIAS"
+					+ " WHERE MEM_ID = ? ";
 		List<Object> param = new ArrayList<>();
 		param.add(member.get("MEM_ID"));
+		
 		return jdbc.selectList(sql, param);
 	}
-	//public int insertLikeType(){
-	//
-	//}
+
+
 	//이건로그인화면 헷갈리면 안됨 
-	public Map<String, Object> selectLogin(String memId, String password){ 
+	public Map<String, Object> selectLogin(String memId, String password){
 		String sql = "SELECT *"
-				+ " FROM MEMBER"
+				+ " FROM MEMBER "
 				+ " WHERE mem_id = ?"
 				+ " AND mem_password = ?";
 		
+						
 		List<Object> param = new ArrayList<>();
 		param.add(memId);
 		param.add(password);
+		
+			return jdbc.selectOne(sql, param);
+		}
+	
+	//별명추가
+	public int insertAlias(Map<String, Object> param){
+		
+		String sql = "INSERT INTO alias VALUES(?,?,?)";
+		List<Object> p = new ArrayList<>();
+		p.add(param.get("ALIAS_CODE"));
+		p.add(param.get("MEM_ID"));
+		p.add(param.get("ALIAS_NAME"));
+		
+		return jdbc.update(sql,p);
+	}
+	
+	//별명갯수 구하기
+	public  Map<String, Object> selectMembershipNo(String loginId){
+		String sql = "SELECT c.alias_no FROM "
+				+ " (SELECT a.alias_no, b.pay_date FROM membership a, pay b "
+				+ " WHERE a.membership = b.membership AND b.MEM_ID = ? "
+				+ " ORDER BY b.PAY_DATE desc) c WHERE ROWNUM = 1";
+		List<Object> param = new ArrayList<>();
+		param.add(loginId);
+		
 		return jdbc.selectOne(sql, param);
 	}
-}
+	
+	
+	
+	}

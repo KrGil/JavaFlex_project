@@ -78,4 +78,14 @@ public class MovieInfoDao {
 		
 		return jdbc.update(sql, param);
 	}
+	public int updateMoviePick_chart(Map<String, Object> info){
+//		System.out.println(info.get("MOVIE_CODE"));
+//		System.out.println(info.get("MOVIE_CODE"));
+		String sql = "INSERT INTO pick_chart"
+				+ " VALUES (?, ?)";
+		List<Object> param = new ArrayList<>();
+		param.add(info.get("MOVIE_CODE"));
+		param.add(info.get("ALIAS_CODE"));
+		return jdbc.update(sql, param);
+	}
 }

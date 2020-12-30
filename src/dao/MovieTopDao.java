@@ -30,11 +30,12 @@ public class MovieTopDao {
 	public List<Map<String, Object>> selectScore(){
 		// 좋아요별
 		String sql = "SELECT ROWNUM, a.*"
-				+ " FROM (SELECT movie_name, movie_score, MOVIE_OPENDATE"
+				+ " FROM (SELECT movie_name, movie_score, MOVIE_OPENDATE, MOVIE_CODE"
 				+ " FROM MOVIE"
 				+ " ORDER BY movie_score DESC) a"
 				+ " WHERE ROWNUM <=10";    
        
 		return jdbc.selectList(sql);
 	}
+	
 }
