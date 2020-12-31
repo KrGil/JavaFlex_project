@@ -73,8 +73,12 @@ public class MemberService {
 		System.out.println("===========================별명선택==============================┓");
 		List<Map<String, Object>> alias = memberDao.selectAlias();
 //		Controller.loginMember.get("")
-		for(int i =0; i<MembershipNo; i++){
-			System.out.print(i+1+". "+alias.get(i).get("ALIAS_NAME")+"     ");
+		try{
+			for(int i =0; i<MembershipNo; i++){
+				System.out.print(i+1+". "+alias.get(i).get("ALIAS_NAME")+"     ");
+			}
+			
+		}catch(Exception e){
 		}
 		System.out.println();
 		System.out.println("===============================================================┛");

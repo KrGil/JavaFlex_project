@@ -85,7 +85,7 @@ public class MemberMypageService {
 					+ " / " + selectInfoCard.get("CARD_NAME"));
 		System.out.println("▶ 멤버십 : " + selectInfoMembership.get("MEMBERSHIP"));
 		System.out.println();
-		System.out.println("▶ 지금까지 본 영화 수  : " + selectInfoWatchmovie.size() + "편");
+		System.out.println("▶ 지금까지 본 영화 수  : " + (selectInfoWatchmovie.size()-1) + "편");
 		System.out.println("▶ 나의 장르선호도");
 		System.out.println("1위 : " + row1.get("NAME") + ", 2위 : " + row2.get("NAME") + ", 3위 : " + row3.get("NAME"));
 		
