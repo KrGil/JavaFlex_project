@@ -8,6 +8,7 @@ public class View {
 	public static final int INSERT_CARD_PAGE = 3;
 	public static final int INSERT_TYPE = 4;
 	public static final int INSERT_DATA = 5;
+	public static final int TOTAL_MOVIE = 19;
 	//LOGIN화면
 	public static final int LOGIN = 6;
 	public static final int ALIAS_LIST = 7;

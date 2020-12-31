@@ -13,7 +13,9 @@ public class FnAService {
 		return instance;
 	}
 	public int fna_page(){
+		System.out.println("======================고객센터=========================┓");
 		System.out.println("\t1.공지사항\t2.F&A\t3.돌아가기");
+		System.out.println("=====================================================┛");
 		int input = ScanUtil.nextInt();
 		if(input == 1){
 			fna();
@@ -40,7 +42,7 @@ public class FnAService {
 		return View.HOME;
 	}
 	public int notice(){
-		System.out.println("================================================================");
+		System.out.println("================================================================┓");
 		System.out.println("\t\t\t맴버십 및 요금");
 		System.out.println("\t\t\t\t\t베이식\t스탠다드\t프리미엄 "); 
 		System.out.println("----------------------------------------------------------------");
@@ -57,7 +59,7 @@ public class FnAService {
 		System.out.println("HD 화질 이용 가능  \t\t\t\t\t✓\t✓");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("UHD 화질 이용 가능  \t\t\t\t\t\t✓");
-		System.out.println("================================================================");
+		System.out.println("================================================================┛");
 		System.out.println("");
 		return View.HOME;
 	}

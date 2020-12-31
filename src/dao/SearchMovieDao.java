@@ -20,7 +20,8 @@ public class SearchMovieDao {
 		String sql = "SELECT ROWNUM, a.*,b.* "
 				+ " FROM movie a, type b"
 				+ " WHERE a.type_lgu = b.type_lgu"
-				+ " AND movie_name like '%'||?||'%'";
+				+ " AND movie_name like '%'||?||'%'"
+				+ "	AND movie_opendate is not null";
 		List<Object> param = new ArrayList<>();
 		param.add(result);
 		

@@ -32,10 +32,10 @@ public class MemberMypageService {
 	
 	
 	public int myPageList(){
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("=============================================================┓");
 		System.out.println("1.내 정보 보기\t2.찜 목록 보기\t3.봤던 영화 목록\t0.돌아가기");
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("번호입력>");
+		System.out.println("=============================================================┛");
+		System.out.println("🚩번호입력:");
 		
 		int input = ScanUtil.nextInt();
 		switch(input){
@@ -75,7 +75,7 @@ public class MemberMypageService {
 	    
 		String cardNo = ((selectInfoCard.get("CARD_NO")).toString());
 		
-		System.out.println("--------------------------- 내정보 ---------------------------");
+		System.out.println("===========================내정보==============================┓");
 		System.out.println("▶ ︎아이디 : " + Controller.loginMember.get("MEM_ID"));
 		System.out.println("▶ 별명 :  " + Controller.loginAlias.get("ALIAS_NAME"));
 		System.out.println("▶ 가입일 : " + Controller.loginMember.get("MEM_JOINDATE"));
@@ -105,7 +105,7 @@ public class MemberMypageService {
 			System.out.println();
 		}
 		System.out.println("    " + row1.get("NAME") + "    " + row2.get("NAME") + "    " + row3.get("NAME"));
-		System.out.println("-----------------------------------------------------------");
+		System.out.println("=================================================================┛");
 		System.out.println();
 		
 		if(aliasCode.substring(aliasCode.length()-1).equals("1")){
@@ -173,9 +173,10 @@ public class MemberMypageService {
 		String membership;
 		
 		if(input == 1){
-			
+			System.out.println("=============맴버십===============┓");
 			System.out.println("변경할 멤버쉽을 선택해주세요.");
 			System.out.println("1.BASIC 2.STANDARD 3.PREMIUM");
+			System.out.println("================================┛");
 			input = ScanUtil.nextInt();
 			
 			switch(input){
@@ -199,7 +200,7 @@ public class MemberMypageService {
 		String memID = (String)Controller.loginMember.get("MEM_ID"); //로그인 아이디
 		String aliasCode = (String)Controller.loginAlias.get("ALIAS_CODE");//별명코드
 		
-		System.out.println("▶ 멤버십을 해제하시겠습니까? (1.네, 2.아니요)");
+		System.out.println("🚩 멤버십을 해제하시겠습니까? (1.네, 2.아니요)");
 		
 		String membership = "NON";
 		int input = ScanUtil.nextInt();
@@ -219,11 +220,11 @@ public class MemberMypageService {
 		String memID = (String)Controller.loginMember.get("MEM_ID"); //로그인 아이디
 		String aliasCode = (String)Controller.loginAlias.get("ALIAS_CODE");//별명코드
 		
-		System.out.println("▶ 회원탈퇴 하시겠습니까? (1.네, 2.아니요)");
+		System.out.println("🚩 회원탈퇴 하시겠습니까? (1.네, 2.아니요)");
 		
 		int input = ScanUtil.nextInt();
 		if(input == 1){
-			System.out.println("탈퇴를 하시려면 비밀번호를 입력해주세요 >");
+			System.out.println("🚩탈퇴를 하시려면 비밀번호를 입력해주세요 >");
 			String pw = ScanUtil.nextLine();
 			if(pw.equals((String)Controller.loginMember.get("MEM_PASSWORD"))){
 				int changeCheck = memberMypageDao.cancleMem(memID);
@@ -232,7 +233,7 @@ public class MemberMypageService {
 				}
 				return View.HOME;
 			}else {
-				System.out.println("비밀번호가 틀렸습니다.");
+				System.out.println("비밀번호가 틀렸습니다🤦‍♂🤦‍♂");
 				return View.MYINFO_PAGE;
 			}
 		}else {return View.MYINFO_PAGE;}
@@ -244,21 +245,28 @@ public class MemberMypageService {
 		String memID = (String)Controller.loginMember.get("MEM_ID"); //로그인 아이디
 		String aliasCode = (String)Controller.loginAlias.get("ALIAS_CODE");//별명코드
 		
-		System.out.println("--------------------------- 내 찜목록 ---------------------------");
+		System.out.println("===========================내 찜 목록==============================┓");
 		List<Map<String, Object>> selectPick_chart = memberMypageDao.selectPick_chart(aliasCode);
 		System.out.println("\tNum\tMovieName\t\tOpeningdate");
 		for(int i = 0; i < selectPick_chart.size(); i++){
 			Map<String, Object> getPickChart = selectPick_chart.get(i);
 			Map<String, Object> getPickChartInfo = memberMypageDao.getPickChartInfo((String)getPickChart.get("MOVIE_CODE"));
-			System.out.print("\t" + getPickChart.get("ROWNUM") +"\t");
-			System.out.print(getPickChartInfo.get("MOVIE_NAME") + " (" + getPickChartInfo.get("TYPE_NAME")+") \t\t");
-			System.out.println("   " + form1.format(getPickChartInfo.get("MOVIE_OPENDATE")));
+			String charFrom = getPickChartInfo.get("MOVIE_NAME") + " (" + getPickChartInfo.get("TYPE_NAME")+")";
+			if(charFrom.length() <= 12){
+				System.out.print("\t" + getPickChart.get("ROWNUM") +"\t");
+				System.out.print(getPickChartInfo.get("MOVIE_NAME") + " (" + getPickChartInfo.get("TYPE_NAME")+") \t\t");
+				System.out.println("   " + form1.format(getPickChartInfo.get("MOVIE_OPENDATE")));
+			}else {
+				System.out.print("\t" + getPickChart.get("ROWNUM") +"\t");
+				System.out.print(getPickChartInfo.get("MOVIE_NAME") + " (" + getPickChartInfo.get("TYPE_NAME")+") \t");
+				System.out.println("   " + form1.format(getPickChartInfo.get("MOVIE_OPENDATE")));
+			}
 		}
-		System.out.println("--------------------------------------------------------------");
+		System.out.println("================================================================┛");
 		System.out.println("1.영화선택  0.돌아가기");
 		int input = ScanUtil.nextInt();
 		if(input == 1){
-			System.out.println("영화번호를 선택해 주세요 >");
+			System.out.println("🚩영화번호를 선택해 주세요 :");
 			input = ScanUtil.nextInt();
 			input --;
 			
@@ -266,7 +274,7 @@ public class MemberMypageService {
 			Map<String, Object> getPickChartInfo = memberMypageDao.getPickChartInfo((String)getPickChart.get("MOVIE_CODE"));
 			String pickMovieCode = (String)getPickChart.get("MOVIE_CODE");
 			
-			System.out.println("===========================================================");
+			System.out.println("===========================================================┓");
 			System.out.println("▶ 영화제목 : " + getPickChartInfo.get("MOVIE_NAME"));
 			System.out.println("▶ 영화장르 : " + getPickChartInfo.get("TYPE_NAME"));
 			System.out.println("▶ 개봉년도 : " + form1.format(getPickChartInfo.get("MOVIE_OPENDATE")));
@@ -294,7 +302,7 @@ public class MemberMypageService {
 				System.out.println("\t\t" + getPickChartInfo.get("MOVIE_DETAIL").toString().substring(0, 20));
 			}else {System.out.println("\t\t" + getPickChartInfo.get("MOVIE_DETAIL"));}
 			
-			System.out.println("===========================================================");
+			System.out.println("===========================================================┛");
 			
 			pick_chart_List(pickMovieCode);
 			return View.MYPAGE;
@@ -308,8 +316,9 @@ public class MemberMypageService {
 		//변수
 		String memID = (String)Controller.loginMember.get("MEM_ID"); //로그인 아이디
 		String aliasCode = (String)Controller.loginAlias.get("ALIAS_CODE");//별명코드
-		
+		System.out.println("===================================┓");
 		System.out.println("1.찜목록 삭제 하기  2.영화보기  0.돌아가기");
+		System.out.println("===================================┛");
 		int input = ScanUtil.nextInt();
 		switch(input){
 		case 1: 
@@ -348,10 +357,12 @@ public class MemberMypageService {
 			System.out.println("   " + form1.format(getWatch.get("MOVIE_OPENDATE")));
 		}
 		System.out.println("--------------------------------------------------------------");
+		System.out.println("====================┓");
 		System.out.println("1.영화선택  0.돌아가기");
+		System.out.println("====================┛");
 		int input = ScanUtil.nextInt();
 		if(input == 1){
-			System.out.println("영화번호를 선택해 주세요 >");
+			System.out.println("🚩영화번호를 선택해 주세요 :");
 			input = ScanUtil.nextInt();
 			input --;
 			
@@ -359,7 +370,7 @@ public class MemberMypageService {
 			Map<String, Object> getPickChartInfo = memberMypageDao.getPickChartInfo((String)getPickChart.get("MOVIE_CODE"));
 			String pickMovieCode = getPickChartInfo.get("MOVIE_CODE").toString();
 			
-			System.out.println("===========================================================");
+			System.out.println("===========================================================┓");
 			System.out.println("▶ 영화제목 : " + getPickChartInfo.get("MOVIE_NAME"));
 			System.out.println("▶ 영화장르 : " + getPickChartInfo.get("TYPE_NAME"));
 			System.out.println("▶ 개봉년도 : " + form1.format(getPickChartInfo.get("MOVIE_OPENDATE")));
@@ -387,7 +398,7 @@ public class MemberMypageService {
 				System.out.println("\t\t" + getPickChartInfo.get("MOVIE_DETAIL").toString().substring(0, 20));
 			}else {System.out.println("\t\t" + getPickChartInfo.get("MOVIE_DETAIL"));}
 			
-			System.out.println("===========================================================");
+			System.out.println("===========================================================┛");
 			
 			watch_List(pickMovieCode, input);
 			return View.MYPAGE; 

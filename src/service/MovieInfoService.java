@@ -24,12 +24,11 @@ public class MovieInfoService {
 	
 	public int movieInfo(){ //MOVIE_INFO_PAGE
 		String mc = Controller.pick_movieCode;
-		System.out.println(mc);
 		//영화정보 dao에서 가져오기
 		//제목, 장르, 날짜, 조횟수, 설명
 		
 		List<Map<String, Object>> mid = movieInfoDao.selectMovie(mc);
-		System.out.println("===========================================================");
+		System.out.println("===========================================================┓");
 		String movie_code = null;
 		for(int i = 0; i < mid.size(); i++){
 			Map<String, Object> hash = mid.get(i);
@@ -59,15 +58,37 @@ public class MovieInfoService {
 			}else if((hash.get("MOVIE_DETAIL").toString().length() > 20)){
 				System.out.println("\t\t" + hash.get("MOVIE_DETAIL").toString().substring(0, 20));
 			}else {System.out.println("\t\t" + hash.get("MOVIE_DETAIL"));}
-			System.out.println("===========================================================");
+			System.out.println("===========================================================┛");
 			System.out.println("\t1.영화보기\t2.찜하기\t3.평가하기\t0.돌아가기");
 			movie_code = hash.get("MOVIE_CODE").toString();
 		}
 		int input = ScanUtil.nextInt();
 		switch(input){
 		case 1: 
+			String[] found = {"영","화","시","청","중",".",".","."};
+			String[] found1 ={"(〠_〠   ) ","(  〠_〠) " ,"(〠_〠   ) ","(  〠_〠) ","(〠_〠   ) ","(  〠_〠) ","(〠_〠   ) ","(  〠_〠) " };
+			for(int i = 0; i < found.length; i++){
+				System.out.print(found[i]);
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) { 
+					e.printStackTrace();
+				}
+			}
+			System.out.println();
+			for(int i = 0; i < found1.length; i++){
+				System.out.print(found1[i]);
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) { 
+					e.printStackTrace();
+				}
+			}
+			System.out.println();
 			if(movie_watch(movie_code) > 0){
-				System.out.println("영화를 보았습니다.");
+				int changeCheck = memberMypageDao.updateViewCnt(movie_code);
+				int something = memberMypageDao.insertWatch(movie_code, Controller.loginAlias.get("ALIAS_CODE").toString());
+				System.out.println("🚩영화 시청을 완료하였습니다:");
 			}break;
 		case 2: 
 			Map<String,Object> info = new HashMap<>();
@@ -100,9 +121,9 @@ public class MovieInfoService {
 					System.out.println("싫어요는 거절하겠어.");
 				}
 			}else{
-				System.out.println("제대로 입력해 주세요.");
+				System.out.println("올바르게 다시 입력해 주세요.");
 			}break;
-		case 0: return View.TOP_PAGE;
+		case 0: return View.MAIN_PAGE;
 		}
 		return View.MAIN_PAGE;
 	}

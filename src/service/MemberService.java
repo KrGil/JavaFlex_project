@@ -44,13 +44,15 @@ public class MemberService {
 
 	//로그인 화면
 	public int login(){
-		System.out.println("==========로그인=============");
+		
+		System.out.println("==================로그인===================┓");
 		System.out.println("🚩아이디:");
 		String memberId = ScanUtil.nextLine();
 		System.out.println("🚩비밀번호:");
 		String password = ScanUtil.nextLine();
+		System.out.println("=========================================┛");
 		
-		Map<String,Object> member = memberDao.selectLogin(memberId, password); //memName, card, alias, likeType);
+		Map<String,Object> member = memberDao.selectLogin(memberId, password); 
 		
 		if(member == null){
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
@@ -59,7 +61,7 @@ public class MemberService {
 			Controller.loginMember = member;
 			
 			
-			return View.ALIAS_LIST; //로그인 후에 열리는 페이지 뭐더라 ALIAS_LIST;
+			return View.ALIAS_LIST; 
 		}
 			return View.LOGIN;
 	}
@@ -68,19 +70,19 @@ public class MemberService {
 		Map<String, Object> selectMembershipNo = memberDao.selectMembershipNo(Controller.loginMember.get("MEM_ID").toString());
 		int MembershipNo = ((BigDecimal)selectMembershipNo.get("ALIAS_NO")).intValue();
 		//뷰
-		System.out.println("=============================");
+		System.out.println("===========================별명선택==============================┓");
 		List<Map<String, Object>> alias = memberDao.selectAlias();
-
-		for(int i =0; i<alias.size(); i++){
+//		Controller.loginMember.get("")
+		for(int i =0; i<MembershipNo; i++){
 			System.out.print(i+1+". "+alias.get(i).get("ALIAS_NAME")+"     ");
 		}
 		System.out.println();
-		System.out.println("=============================");
+		System.out.println("===============================================================┛");
 		
 		System.out.println("1.별명 선택\t2.별명 추가");
 		int input = ScanUtil.nextInt();
 		if(input == 1){
-			System.out.println("별명을 선택해주세요>");
+			System.out.println("🚩별명을 선택해주세요:");
 			input = ScanUtil.nextInt();
 			Controller.loginAlias = alias.get(input-1);
 			if (Controller.loginAlias == null){
@@ -120,7 +122,7 @@ public class MemberService {
 	
 	//테이블 업데이트
 	public int insert() {
-		System.out.println("사용할 별명을 입력해주세요.>");
+		System.out.println("🚩사용하실 별명을 입력해주세요:");
 		vAliasName1 = ScanUtil.nextLine();
 		vAliasId1 = vMemberId +"1";
 		
@@ -145,29 +147,32 @@ public class MemberService {
 	
 	//회원가입화면
 	public int join(){
-		System.out.println("===========회원가입==========");
-		System.out.println("아이디>");
+		System.out.println("===========================회원가입==============================┓");
+		System.out.println("🚩아이디:");
 		vMemberId = ScanUtil.nextLine();
-		System.out.println("비밀번호>");
+		System.out.println("🚩비밀번호:");
 		vPassword = ScanUtil.nextLine();
+		System.out.println("===============================================================┛");
 		
 		return View.INSERT_MEMBERSHIP_PAGE;
 	}
 	
 	//맴버십
 	public int membership(){
-		System.out.println("맴버십 페이지입니다. 사용하실 맴버십을 선택해주세요");
-		System.out.println("1.BASIC\t2.STANDARD\t3.PREMIUM");
+		System.out.println("=============================맴버십==============================┓");
+		System.out.println("🚩맴버십 페이지입니다. 사용하실 맴버십을 선택해주세요");
+		System.out.println("1.BASIC \t2.STANDARD \t3.PREMIUM");
+		System.out.println("===============================================================┛");
 		int input = ScanUtil.nextInt();
 		
 		switch(input){
-		case 1: System.out.println("BASIC 를 선택하셨습니다.");
+		case 1: System.out.println("🚩BASIC 를 선택하셨습니다.");
 				vMembership = "BASIC";
 				break;
-		case 2: System.out.println("STANDARD 를 선택하셨습니다.");
+		case 2: System.out.println("🚩STANDARD 를 선택하셨습니다.");
 				vMembership = "STANDARD";
 				break;
-		case 3: System.out.println("PREMIUM 를 선택하셨습니다.");
+		case 3: System.out.println("🚩PREMIUM 를 선택하셨습니다.");
 				vMembership = "PREMIUM";
 				break;		
 			}
@@ -178,10 +183,13 @@ public class MemberService {
 	
 	//카드페이지x 카드 정보만 들고 가기.
 	public int card(){
+		System.out.println("===========================결제페이지==============================┓");
 		System.out.println("🚩카드번호 12자리를 입력해주세요(-제외) :");
 		vCardNum = ScanUtil.nextLine();
 		if(vCardNum.length() == 12){
+			System.out.println("=====================┓");
 			System.out.println("카드입력에 성공하셨습니다.");
+			System.out.println("=====================┛");
 		}else{
 			System.out.println("카드번호를 잘못 입력하셨습니다.");
 		}
@@ -217,8 +225,9 @@ public class MemberService {
 	
 	//선호장르
 	public int likeType(){
+		System.out.println("===========================추가정보입력==============================┓");
 		System.out.println("🚩선호하는 영화 장르를 선택하세요");
-		System.out.println("1.로맨스/멜로\t2.코미디\t3.SF/판타지\t4.애니메이션\t5.공포/스릴러\t6.다큐");
+		System.out.println("1.로맨스/멜로\t2.코미디 \t\t3.SF/판타지\t4.애니메이션\t5.공포/스릴러\t6.다큐");
 		int input = ScanUtil.nextInt();
 		
 		switch(input){

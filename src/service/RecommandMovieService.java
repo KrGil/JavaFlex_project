@@ -45,30 +45,37 @@ public class RecommandMovieService {
 //			System.out.println(key + " : "+row1.get(key));
 //		}
 		List<Object> list = new ArrayList<>();
+		
 		list.add(row1.get("LGU"));
 		list.add(x);
 		list.add(row2.get("LGU"));
 		list.add(y);
 		list.add(row3.get("LGU"));
 		list.add(z);
+		
 		List<Map<String, Object>> recommandList = recommandMovieDao.selectrecommandMovie(list);
-		System.out.println("==========================================================");
+		System.out.println("==========================================================┓");
 		for(int i=0; i < recommandList.size(); i ++){
 			Map<String, Object> hash = recommandList.get(i);
 			System.out.print("\t"+hash.get("ROWNUM")+"\t");
-			System.out.print(hash.get("MOVIE_NAME")+"("+hash.get("TYPE_NAME")+")"+"\t");
+			if(hash.get("MOVIE_NAME").toString().length() >4){
+				System.out.print(hash.get("MOVIE_NAME").toString().substring(0, 3)+".."); 
+			}else{
+				System.out.print(hash.get("MOVIE_NAME"));
+			}
+			System.out.print("("+hash.get("TYPE_NAME")+")"+"\t");
 			System.out.println(Controller.formY.format(hash.get("MOVIE_OPENDATE")));
 		}
-		System.out.println("==========================================================");
+		System.out.println("==========================================================┛");
 		System.out.println("\t1.영화선택"+"\t"+"2.돌아가기");
 		int input = ScanUtil.nextInt();
 		if(input == 1){
-			System.out.println("영화를 선택해주세요.");
+			System.out.println("🚩영화를 선택해주세요:");
 			int input1 = ScanUtil.nextInt();
 			Controller.pick_movieCode = (String) recommandList.get(input1-1).get("MOVIE_CODE");
 			return View.MOVIE_INFO_PAGE;
 		}else{
-			return View.RECOMMEND_PAGE;
+			return View.MAIN_PAGE;
 		}
 	}
 	

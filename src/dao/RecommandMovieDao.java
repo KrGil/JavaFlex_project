@@ -43,7 +43,8 @@ public class RecommandMovieDao {
 				+ "            ORDER BY MOVIE_SCORE DESC"
 				+ "    )"
 				+ "    WHERE ROWNUM <= ?) a, TYPE b"
-				+ " WHERE a.type_lgu = b.type_lgu";
+				+ " WHERE a.type_lgu = b.type_lgu"
+				+ "		AND ROWNUM < 11";
 		
 		return jdbc.selectList(sql, list);
 			

@@ -193,6 +193,7 @@ public class MemberMypageDao {
 		String sql = "SELECT ROWNUM, a.watch_date, b.*, c.type_name"
 				+ " FROM(SELECT movie_code, watch_date FROM watch WHERE alias_code = ?) a, movie b, type c"
 				+ " WHERE a.movie_code = b.movie_code"
+				+ " AND movie_opendate is not null"
 				+ " AND b.type_lgu = c.type_lgu";
 		List<Object> param = new ArrayList();
 		param.add(loginMemberAlias);
@@ -224,6 +225,14 @@ public class MemberMypageDao {
 				+ " WHERE movie_code = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(movie_code);
+		
+		return jdbc.update(sql, param);
+	}
+	public int insertWatch(String movie_code, String alias_code) {
+		String sql = "insert into watch values (?,?,sysdate)";
+		List<Object> param = new ArrayList<>();
+		param.add(movie_code);
+		param.add(alias_code);
 		
 		return jdbc.update(sql, param);
 	}
